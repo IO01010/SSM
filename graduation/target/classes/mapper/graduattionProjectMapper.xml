@@ -1,0 +1,1124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abc.graduationproject.dao.graduattionProjectMapper">
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.graduattionProject">
+    <result column="taskId" jdbcType="INTEGER" property="taskid" />
+    <result column="applicantName" jdbcType="VARCHAR" property="applicantname" />
+    <result column="applicantStatus" jdbcType="BIT" property="applicantstatus" />
+    <result column="isAddGroup" jdbcType="BIT" property="isaddgroup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    taskId, applicantName, applicantStatus, isAddGroup
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample">
+    delete from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject (taskId, applicantName, applicantStatus, 
+      isAddGroup)
+    values (#{taskid,jdbcType=INTEGER}, #{applicantname,jdbcType=VARCHAR}, #{applicantstatus,jdbcType=BIT}, 
+      #{isaddgroup,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.graduattionProject">
+    insert into graduattionproject
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        taskId,
+      </if>
+      <if test="applicantname != null">
+        applicantName,
+      </if>
+      <if test="applicantstatus != null">
+        applicantStatus,
+      </if>
+      <if test="isaddgroup != null">
+        isAddGroup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskid != null">
+        #{taskid,jdbcType=INTEGER},
+      </if>
+      <if test="applicantname != null">
+        #{applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantstatus != null">
+        #{applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="isaddgroup != null">
+        #{isaddgroup,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.graduattionProjectExample" resultType="java.lang.Long">
+    select count(*) from graduattionproject
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update graduattionproject
+    <set>
+      <if test="record.taskid != null">
+        taskId = #{record.taskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.applicantname != null">
+        applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applicantstatus != null">
+        applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      </if>
+      <if test="record.isaddgroup != null">
+        isAddGroup = #{record.isaddgroup,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update graduattionproject
+    set taskId = #{record.taskid,jdbcType=INTEGER},
+      applicantName = #{record.applicantname,jdbcType=VARCHAR},
+      applicantStatus = #{record.applicantstatus,jdbcType=BIT},
+      isAddGroup = #{record.isaddgroup,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.abc.graduationproject.dao.taskProcessMapper">
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <id column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from taskprocess
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from taskprocess
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    update taskprocess
+    <set>
+      <if test="process != null">
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        processDate = #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.abc.graduationproject.bean.taskProcess">
+    update taskprocess
+    set process = #{process,jdbcType=VARCHAR},
+      processDate = #{processdate,jdbcType=TIMESTAMP}
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <result column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <result column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <result column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <id column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from taskprocess
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from taskprocess
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    update taskprocess
+    <set>
+      <if test="process != null">
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        processDate = #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.abc.graduationproject.bean.taskProcess">
+    update taskprocess
+    set process = #{process,jdbcType=VARCHAR},
+      processDate = #{processdate,jdbcType=TIMESTAMP}
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <id column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from taskprocess
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from taskprocess
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    update taskprocess
+    <set>
+      <if test="process != null">
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        processDate = #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.abc.graduationproject.bean.taskProcess">
+    update taskprocess
+    set process = #{process,jdbcType=VARCHAR},
+      processDate = #{processdate,jdbcType=TIMESTAMP}
+    where memberTaskId = #{membertaskid,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.abc.graduationproject.bean.taskProcess">
+    <result column="memberTaskId" jdbcType="INTEGER" property="membertaskid" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="processDate" jdbcType="TIMESTAMP" property="processdate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    memberTaskId, process, processDate
+  </sql>
+  <select id="selectByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample">
+    delete from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess (memberTaskId, process, processDate
+      )
+    values (#{membertaskid,jdbcType=INTEGER}, #{process,jdbcType=VARCHAR}, #{processdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.abc.graduationproject.bean.taskProcess">
+    insert into taskprocess
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        memberTaskId,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="processdate != null">
+        processDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="membertaskid != null">
+        #{membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="processdate != null">
+        #{processdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.abc.graduationproject.bean.taskProcessExample" resultType="java.lang.Long">
+    select count(*) from taskprocess
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskprocess
+    <set>
+      <if test="record.membertaskid != null">
+        memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      </if>
+      <if test="record.process != null">
+        process = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processdate != null">
+        processDate = #{record.processdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskprocess
+    set memberTaskId = #{record.membertaskid,jdbcType=INTEGER},
+      process = #{record.process,jdbcType=VARCHAR},
+      processDate = #{record.processdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
